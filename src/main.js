@@ -21,6 +21,12 @@ for (file of commandFiles) {
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
     
+    client.application.fetch().then(data => {
+        client.owners = data.owner.members?.map(el => el.id) || [data.owner.id] || [];
+        
+        console.log(`Fetched ${client.owners.length} owner${(client.owners.length > 1) ? "s" : ""}.`);
+    });
+    
     await (async() => {
         let commands = [];
         

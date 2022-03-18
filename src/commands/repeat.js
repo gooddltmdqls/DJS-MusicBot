@@ -36,6 +36,6 @@ module.exports = {
         
         itr.options.getString('모드') ? queue.repeat = itr.options.getString('모드') : queue.repeat = !queue.repeat;
         
-        await itr.editReply(`🔁 이제 ${queue.repeat ? '음악을 반복하기 시작합니다.' : '더 이상 음악을 반복하지 않습니다.'}`);
+        await itr.editReply(`🔁 이제 ${queue.repeat ? ((queue.repeat === 'queue' ? '큐 단위로' : '현재 음악을') + ' 반복하기 시작합니다.') : '더 이상 음악을 반복하지 않습니다.'}`);
     }
 }

@@ -41,7 +41,7 @@ module.exports = class Queue {
         this.isPlaying = false;
         this.repeat = false;
         
-        this.volume = 1;
+        this.volume = 0.7;
         
         this.textChannel = data.textChannel;
         this.voiceChannel = data.voiceChannel;

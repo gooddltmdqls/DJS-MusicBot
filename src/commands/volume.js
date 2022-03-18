@@ -10,6 +10,8 @@ module.exports = {
             opt.setName('음량')
                .setDescription('설정할 음량입니다.')
                .setMaxValue(100)
+               .setMinValue(1)
+               .setRequired(true)
         ),
     async execute(itr) {
         if (!itr.guild) return itr.reply("서버 안에서만 사용할 수 있습니다!");
@@ -22,6 +24,8 @@ module.exports = {
         let queue = QueueManager.getQueue(itr.client, itr.guild.id);
         
         if (!queue) return await itr.editReply('큐가 존재하지 않습니다.');
+        
+        if (itr.options.getInteger('음량') > 100 || itr.options.getInteger('음량') < 1) return itr.editReply('음량 값이 잘못되었습니다.');
         
         if (queue.volume === (itr.options.getInteger('음량') / 100)) return itr.editReply("현재 음량과 동일합니다.");
         
