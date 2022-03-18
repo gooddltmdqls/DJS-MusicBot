@@ -41,8 +41,6 @@ module.exports = class Queue {
         this.isPlaying = false;
         this.repeat = false;
         
-        this.volume = 0.7;
-        
         this.textChannel = data.textChannel;
         this.voiceChannel = data.voiceChannel;
         
@@ -93,11 +91,17 @@ module.exports = class Queue {
     }
     
     setVolume(volume) {
-        this.volume = volume / 100;
-        
-        this.connection.state.subscription.player.state.resource.volume.setVolume(this.volume);
+        this.connection.state.subscription.player.state.resource.volume.setVolume(volume / 100);
         
         return true;
+    }
+    
+    get volume() {
+        return this.connection.state.subscription.player.state.resource?.volume.volume ?? 0.7;
+    }
+    
+    set volume(volume) {
+        this.setVolume(volume);
     }
     
     async skip() {
@@ -152,9 +156,9 @@ module.exports = class Queue {
             console.error(err);
         });
         
-        resource.volume.setVolume(this.volume);
-        
         this.connection.subscribe(player);
+        
+        resource.volume.setVolume(this.volume);
         
         player.play(resource);
         

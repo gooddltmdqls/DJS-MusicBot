@@ -29,7 +29,7 @@ module.exports = {
         
         if (queue.volume === (itr.options.getInteger('음량') / 100)) return itr.editReply("현재 음량과 동일합니다.");
         
-        queue.setVolume(itr.options.getInteger('음량'));
+        queue.volume = itr.options.getInteger('음량');
         
         await itr.editReply(`🔊 음량을 ${queue.volume * 100}%로 설정했습니다.`);
     }
