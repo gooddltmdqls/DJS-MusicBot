@@ -41,6 +41,8 @@ module.exports = class Queue {
         this.isPlaying = false;
         this.repeat = false;
         
+        this.volume = 1;
+        
         this.textChannel = data.textChannel;
         this.voiceChannel = data.voiceChannel;
         
@@ -90,6 +92,14 @@ module.exports = class Queue {
         return this.connection.state.subscription.player.unpause();
     }
     
+    setVolume(volume) {
+        this.volume = volume / 100;
+        
+        this.connection.state.subscription.player.state.resource.volume.setVolume(this.volume);
+        
+        return true;
+    }
+    
     async skip() {
         if (!this.repeat) this.songs.shift();
         else {
@@ -113,7 +123,9 @@ module.exports = class Queue {
         this.isPlaying = true;
         this.isPaused = false;
         
-        let resource = voices.createAudioResource(this.songs[0].stream);
+        let resource = voices.createAudioResource(this.songs[0].stream, {
+            inlineVolume: true
+        });
         
         let player = voices.createAudioPlayer();
         
@@ -139,6 +151,8 @@ module.exports = class Queue {
             this.textChannel.send("⚠️ 오류가 발생했습니다.");
             console.error(err);
         });
+        
+        resource.volume.setVolume(this.volume);
         
         this.connection.subscribe(player);
         

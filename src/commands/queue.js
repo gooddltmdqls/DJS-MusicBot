@@ -29,14 +29,16 @@ module.exports = {
             pages[pages.length - 1].push(song);
         });
         
-        var texts = [ '' ];
+        let defaultText = `${queue.repeat ? ((queue.repeat === 'queue' ? '큐 단위로' : '현재 음악을') + ' 반복 중 | ') : '반복 안함 | '}음량: ${queue.volume * 100}% \n\n`;
+        
+        var texts = [ defaultText ];
         
         pages.forEach((page, tens) => {
             page.forEach(
               (song, ones) => texts[texts.length - 1] = texts[texts.length - 1] + 
               `${tens * 10 + (ones + 1)}. **[${song.title}](${song.url})**\n길이: ${song.duration} | <@!${song.addedBy}>\n\n`
             );
-            texts.push('');
+            texts.push(defaultText);
         });
     
         embed.setDescription(texts[0]);
