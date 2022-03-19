@@ -37,6 +37,8 @@ module.exports = class Queue {
         
         this.client.on('voiceStateUpdate', listener);
         
+        this._volume = 0.7;
+        
         this.isPaused = null;
         this.isPlaying = false;
         this.repeat = false;
@@ -91,13 +93,14 @@ module.exports = class Queue {
     }
     
     setVolume(volume) {
-        this.connection.state.subscription.player.state.resource.volume.setVolume(volume / 100);
+        this._volume = volume / 100;
+        this.connection.state.subscription.player.state.resource.volume.setVolume(this._volume);
         
         return true;
     }
     
     get volume() {
-        return this.connection.state.subscription.player.state.resource?.volume.volume ?? 0.7;
+        return this.connection.state.subscription.player.state.resource?.volume.volume ?? this._volume;
     }
     
     set volume(volume) {
