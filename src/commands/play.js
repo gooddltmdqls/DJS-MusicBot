@@ -30,9 +30,14 @@ module.exports = {
         let items = [];
         
         if (isPL) {
-            pl = await ytpl(itr.options.getString("검색"), {
-                gl: "KR"
-            });
+            try {
+                pl = await ytpl(itr.options.getString("검색"), {
+                    gl: "KR",
+                    limit: Infinity
+                });
+            } catch (err) {
+                return itr.channel.send('❌ 검색 결과가 없어요...');
+            }
             
             items = pl.items;
         } else items = (await ytsr(itr.options.getString("검색"), {
