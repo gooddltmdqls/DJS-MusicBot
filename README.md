@@ -2,6 +2,16 @@
 
 올인원 음악봇입니다. 이슈, PR 환영
 
+## 설명
+
+@discordjs/voice를 기반으로 작성되었습니다.
+
+- 사용한 모듈
+- - discord.js
+- - @discordjs/voice
+- - ytdl
+- - ytsr
+
 ## 초기 설정
 
 쉘에 다음 커맨드를 입력하세요.
