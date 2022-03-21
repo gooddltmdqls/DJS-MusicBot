@@ -67,6 +67,8 @@ module.exports = class Queue {
     addSong(data) {
         this.songs.push(new Song({ client: this.client, ...data }));
         
+        if (this.songs.filter(song => !!song.stream).length == 1) this.preload();
+        
         return true;
     }
     
@@ -77,7 +79,7 @@ module.exports = class Queue {
         if (!this.songs.length) {
             this.connection.disconnect();
             this.textChannel.send("✅ 더 이상 재생할 음악이 없어 재생을 종료했습니다!");
-        } else this.play();
+        } else if (index == (fromOne + 0)) this.play();
         
         return true;
     }
