@@ -4,13 +4,14 @@
 
 ## 설명
 
-@discordjs/voice를 기반으로 작성되었습니다.
+@discordjs/voice를 기반으로 작성된 외부 모듈 없는 오픈소스 음악봇입니다.
 
 - 사용한 모듈
 - - discord.js
-- - @discordjs/voice
-- - ytdl
-- - ytsr
+- - @discordjs/voice - 음성 모듈
+- - ytdl - 유튜브 영상 로드
+- - ytsr - 유튜브 영상 검색
+- - ytpl - 유튜브 재생목록 로드
 
 ## 초기 설정
 
